@@ -22,6 +22,26 @@ const initState = {
 	Role: '',
 };
 
+const initPreference = {
+	mediaSource: {
+		Anime: ['Bangumi'],
+		Movie: ['TMDB'],
+	},
+};
+
+const usePreference = create(
+	devtools(
+		persist(
+			combine(initPreference, (set, get) => ({
+				Set: (p: any) => {
+					set(p);
+				},
+			})),
+			{ name: 'user-preference' },
+		),
+	),
+);
+
 const useUserInfo = create(
 	devtools(
 		persist(
@@ -29,7 +49,6 @@ const useUserInfo = create(
 				Set: (ui: any) => {
 					set(ui);
 				},
-				Get: () => get(),
 				Reset: () => {
 					set(initState);
 				},
@@ -39,5 +58,45 @@ const useUserInfo = create(
 	),
 );
 
-export { useUserInfo };
+const useTheme = create(
+	devtools(
+		persist(
+			combine(
+				{
+					theme: '',
+				},
+				(set, get) => ({
+					Set: (s: any) => {
+						set(s);
+					},
+				}),
+			),
+			{ name: 'theme' },
+		),
+	),
+);
+
+const useGlobalState = create(
+	devtools(
+		persist(
+			combine(
+				{
+					isNavOpen: false,
+				},
+				(set, get) => ({
+					SetNavOpen: (isOpen: boolean) => {
+						set({ isNavOpen: isOpen });
+					},
+					ToggleNavOpen: () => {
+						const x = get().isNavOpen;
+						set({ isNavOpen: !x });
+					},
+				}),
+			),
+			{ name: 'global-state' },
+		),
+	),
+);
+
+export { useUserInfo, useTheme, useGlobalState, usePreference };
 export default useStore;
