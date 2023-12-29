@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const rewrites = async () => {
 	return [
 		{
@@ -8,8 +7,18 @@ const rewrites = async () => {
 	];
 };
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
 	rewrites,
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'placehold.co',
+				port: '',
+			},
+		],
+	},
 };
 
 module.exports = nextConfig;
