@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { debounce } from 'lodash';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -27,7 +27,7 @@ const AlreadyLogin = () => {
 		if (!success) {
 			toast.error('Logout fail');
 		}
-		userinfo?.Reset();
+		useUserInfo.getState().Reset();
 		toast.success('Logout success', { duration: 2500 });
 		setTimeout(() => {
 			window?.location.reload();
@@ -97,16 +97,21 @@ const LoginForm = () => {
 			},
 		},
 	];
+	const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'Enter') {
+			debounce(login, 300)();
+		}
+	};
 
 	return (
 		<>
-			<div className="p-2 w-2/3 mx-auto bg-sky-700 text-white border-2 border-sky-900 border-b-0">
+			<div className="p-2 w-full mx-auto bg-sky-700 text-white border-2 border-sky-900 border-b-0">
 				login
 			</div>
-			<div className="p-2 w-2/3 mx-auto border-2 border-sky-900">
+			<div className="p-2 w-full mx-auto border-2 border-sky-900">
 				<div className="w-full flex flex-col mt-2 mb-6">
 					<button
-						className="border hover:bg-slate-200 p-1 mt-2 w-2/3 mx-auto shadow py-1"
+						className="border hover:bg-slate-200 p-1 mt-2 w-5/6 md:w-2/3 mx-auto shadow py-1"
 						// onClick={debounce(login, 300)}
 					>
 						<svg
@@ -128,18 +133,19 @@ const LoginForm = () => {
 				<div className="w-full flex flex-col my-4">
 					{form.map((it) => (
 						<div className="mb-2" key={it.name}>
-							<label className="w-2/3 mx-auto md:mx-1 md:w-1/6 block md:text-right pr-2 md:float-left font-bold ">
+							<label className="w-5/6 mx-auto md:mx-1 md:w-1/6 block md:text-right pr-2 md:float-left font-bold ">
 								{it.name}
 							</label>
 							<input
 								type={it.type}
-								className="border w-2/3 shadow-inner block mx-auto md:mx-0 pl-2 py-0.5"
+								className="border w-5/6 md:w-2/3 shadow-inner block mx-auto md:mx-0 pl-2 py-0.5"
 								onChange={it.onChange}
+								onKeyDown={handleKeyPress}
 							/>
 						</div>
 					))}
 					<button
-						className="border hover:bg-slate-200 p-1 mt-2 w-2/3 mx-auto shadow"
+						className="border hover:bg-slate-200 p-1 mt-2 w-5/6 md:w-2/3 mx-auto shadow"
 						onClick={debounce(login, 300)}
 					>
 						login

@@ -28,7 +28,7 @@ const redirectToLogin = async () => {
 	});
 
 	if (!isLogin) {
-		redirect('/auth');
+		redirect('/auth/login');
 	}
 };
 
