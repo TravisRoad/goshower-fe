@@ -66,7 +66,7 @@ const LoginForm = () => {
 					return;
 				}
 				toast.success('success');
-				router.push('/');
+				router.push('/dashboard');
 				res.json().then((d) => {
 					const data = d.data;
 					userinfo.Set({

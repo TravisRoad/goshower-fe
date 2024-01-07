@@ -46,7 +46,7 @@ export default function Sidebar() {
 				<BurgerButton />
 			</div>
 			<div>
-				<MenuItem name="Home" href="/">
+				<MenuItem name="Home" href="/dashboard">
 					<HomeIcon className="w-5 h-5" />
 				</MenuItem>
 				<MenuItem name="Record" href="/record">

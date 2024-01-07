@@ -17,6 +17,21 @@ const nextConfig = {
 				hostname: 'placehold.co',
 				port: '',
 			},
+			{
+				protocol: 'https',
+				hostname: 'image.tmdb.org',
+				port: '',
+			},
+			{
+				protocol: 'https',
+				hostname: 'lain.bgm.tv',
+				port: '',
+			},
+			{
+				protocol: 'http',
+				hostname: 'lain.bgm.tv',
+				port: '',
+			},
 		],
 	},
 };

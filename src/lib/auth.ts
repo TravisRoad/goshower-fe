@@ -5,7 +5,15 @@ import { redirect } from 'next/navigation';
 
 const IS_LOGIN_URL = 'http://localhost:8080/api/auth/islogin';
 
-const _isLogin = async () => {
+const _isLogin = async (): Promise<Response> => {
+	const session = cookies().get('session');
+	if (session === undefined) {
+		const res = new Response('Unauthenticated', {
+			status: 401,
+		});
+		return res;
+	}
+
 	return fetch(IS_LOGIN_URL, {
 		cache: 'no-store',
 		headers: {
